@@ -11,6 +11,8 @@ import com.orsys.hibernate.model.Employee;
 import com.orsys.hibernate.util.HibernateUtil;
 
 public class HQLExample {
+	@SuppressWarnings("unchecked")
+
 public static void main(String[] args)
 {
 	SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -19,7 +21,7 @@ public static void main(String[] args)
 	Query query = session.createQuery("from Employee");
 	List<Employee> empList = query.list();
 	for(Employee emp : empList){
-		System.out.println("List of Employees::"+emp.getId()+","+emp.getAddress().getCity());
+		System.out.println("List of Employees::"+emp.getId()+","+emp.getName()+","+emp.getAddress().getCity());
 	}
 }
 }

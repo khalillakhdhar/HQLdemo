@@ -24,7 +24,7 @@ public class HibernateUtil {
         	
             return sessionFactory;
         }
-        //configuration et chargement de la library de hibernate avec session factory
+        //configuration et chargement de la library de hibernate avec session factory	
         catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);
             ex.printStackTrace();
