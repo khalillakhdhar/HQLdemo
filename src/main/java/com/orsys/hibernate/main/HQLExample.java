@@ -1,5 +1,6 @@
 package com.orsys.hibernate.main;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -18,10 +19,51 @@ public static void main(String[] args)
 	SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 	Session session = sessionFactory.getCurrentSession();
 	Transaction tx = session.beginTransaction();
+	Query query ;
+
+/* query= session.createQuery("from Employee");
 	Query query = session.createQuery("from Employee");
 	List<Employee> empList = query.list();
 	for(Employee emp : empList){
 		System.out.println("List of Employees::"+emp.getId()+","+emp.getName()+","+emp.getAddress().getCity());
 	}
+	
+	
+	query = session.createQuery("from Employee where id= :id");
+	query.setLong("id", 1);
+	Employee emp = (Employee) query.uniqueResult(); // on récupére une seule ligne 
+	System.out.println("Employée ="+emp.getName()+", Cité="+emp.getAddress().getCity()); // accés directe
+	*/
+	
+	query = session.createQuery("update Employee set name= :name where id= :id");
+	query.setParameter("name", "Khalil Lakhdhar");
+	query.setLong("id", 1);
+	int result = query.executeUpdate();
+	System.out.println("Employee mis à jour="+result);
+	
+	
+	
+	query = session.createQuery("delete from Address where id= :id");
+	query.setLong("id", 4);
+	 result = query.executeUpdate();
+	System.out.println("Address supprimé="+result);
+	query = session.createQuery("delete from Employee where id= :id");
+	query.setLong("id", 4);
+	result = query.executeUpdate();
+	System.out.println("Employee supprimé Status="+result);
+	
+	query = session.createQuery("select sum(salary) from Employee");
+	double sumSalary = (Double) query.uniqueResult();
+	System.out.println("Sum of all Salaries= "+sumSalary);
+	
+	query = session.createQuery("select e.name, a.city from Employee e "
+			+ "INNER JOIN e.address a");
+	List<Object[]> list = query.list();
+	for(Object[] arr : list){
+		System.out.println(Arrays.toString(arr));
+	}
+	tx.rollback();
+	sessionFactory.close();
+
 }
 }
