@@ -19,7 +19,7 @@ public class Address {
 	@Column(name = "emp_id", unique = true, nullable = false)
 	@GeneratedValue(generator = "gen")
 	@GenericGenerator(name = "gen", strategy = "foreign", 
-				parameters = { @Parameter(name = "property", value = "employee") })
+				parameters = { @Parameter(name = "property", value = "employee") }) //pour faire une jointure par clé primaire
 	private long id;
 
 	@Column(name = "address_line1")
